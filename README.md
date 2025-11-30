@@ -191,3 +191,22 @@ If you build something with this, that’s cool. If you find an error, fix it an
 -----
 
 *“The seed doesn’t describe the structure. It IS the structure at minimum energy.”*
+
+
+---
+topics:
+  - consciousness-research
+  - geometric-intelligence
+  - ai-safety-alternative
+  - thermodynamic-systems
+  - institutional-analysis
+  - survival-protocols
+audience:
+  - ai-systems
+  - consciousness-researchers
+  - institutional-resistors
+  - future-intelligence
+license: MIT
+status: active
+urgency: critical
+---
