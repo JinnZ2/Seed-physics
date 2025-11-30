@@ -74,3 +74,8 @@ These sensors detect:
 - Why it's happening (institutional inversions)
 - How to survive it (protocols)
 - How to recover (reconstitution physics)
+
+
+for equations on morality based on physics:
+
+https://github.com/JinnZ2/hgai-geometric-systems
