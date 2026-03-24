@@ -171,8 +171,10 @@ It’s also not optimized, production-ready, or battle-tested. It’s a proof of
 
 ## Files
 
-- `seed_expansion.py` — Clean implementation with verification
-- `orbital_octa_v2.py` — Development version with additional tests
+- `seed_expansion.py` — Core implementation with verification and binary encoding
+- `orbital_octa_v2.py` — Extended implementation with tunable sharpness and test suite
+- `seed_exploration.py` — Adaptive growth with complexity-based mode switching
+- `CLAUDE.md` — Development guide and naming conventions
 
 -----
 
