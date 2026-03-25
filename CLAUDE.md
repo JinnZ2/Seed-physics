@@ -103,6 +103,18 @@ python seed_mesh_lan.py            # LAN multicast mesh
 - Routing emerges via gradient descent in seed-space
 - Recovery after outage requires only the seed (no external state)
 
+## Fieldlink
+
+The `.fieldlink` file declares this repo's bidirectional API surface:
+
+- **`provides`** — All modules and their exported functions, organized by layer (physics, protocol, transport, mesh)
+- **`consumes`** — External modules this repo can integrate with for extended functionality (agent framework, visualization, persistence, crypto)
+- **`interfaces`** — Shared data formats (seed vectors, shell dicts, packets, geometry)
+- **`hooks`** — Callback points for ecosystem integration (on_seed_received, on_shell_formed, on_mode_switch, on_node_update)
+- **`constraints`** — Physics invariants that any consumer/provider must respect
+
+The repo works standalone with `numpy` only. When connected to an ecosystem, the `consumes` section declares what it can use and the `hooks` section declares where external code can attach.
+
 ## Naming Conventions
 
 - Files: `snake_case.py`

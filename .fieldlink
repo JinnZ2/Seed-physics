@@ -1,0 +1,213 @@
+{
+  "fieldlink": "1.0",
+  "identity": {
+    "name": "seed-physics",
+    "description": "Physics-compliant seed expansion and field-mediated mesh networking",
+    "license": "MIT",
+    "standalone": true
+  },
+
+  "provides": {
+    "physics": {
+      "module": "seed_expansion",
+      "exports": [
+        "U",
+        "angular_weight",
+        "radial_envelope",
+        "field_contribution",
+        "total_field",
+        "normalize_to_energy",
+        "build_influence_matrix",
+        "form_shell",
+        "expand_seed",
+        "compress_to_seed",
+        "encode_seed_binary",
+        "decode_seed_binary",
+        "verify_expansion"
+      ]
+    },
+    "physics_v2": {
+      "module": "orbital_octa_v2",
+      "exports": [
+        "angular_weight",
+        "build_influence_matrix",
+        "field_contribution",
+        "total_field",
+        "normalize_to_energy",
+        "form_shell",
+        "expand_seed",
+        "visualize"
+      ],
+      "extends": "physics",
+      "extra_params": ["sharpness"]
+    },
+    "exploration": {
+      "module": "seed_exploration",
+      "exports": [
+        "shannon_entropy",
+        "complexity_cost",
+        "branching_threshold",
+        "dynamic_sigma",
+        "dynamic_epsilon",
+        "resonance_field",
+        "saturate",
+        "efficiency_stress",
+        "prune_and_reinvest",
+        "total_field_explore",
+        "explore_seed",
+        "full_growth",
+        "analyze_growth"
+      ],
+      "depends": ["physics"]
+    },
+    "protocol_v1": {
+      "module": "seed_protocol",
+      "exports": [
+        "encode_seed",
+        "decode_seed",
+        "pack_seed_packet",
+        "unpack_seed_packet",
+        "expand_seed",
+        "seed_distance",
+        "same_entity"
+      ],
+      "packet_size": 13
+    },
+    "protocol_v2": {
+      "module": "seed_protocol_v2",
+      "exports": [
+        "encode_seed",
+        "decode_seed",
+        "position_to_anchor_offset",
+        "anchor_offset_to_position",
+        "encode_neighbor_hint",
+        "decode_neighbor_hint",
+        "pack_packet",
+        "unpack_packet",
+        "seed_distance",
+        "combine_seeds"
+      ],
+      "packet_size": 21,
+      "extends": "protocol_v1"
+    },
+    "transport_udp": {
+      "module": "seed_udp",
+      "exports": ["send_loop", "receive_loop"],
+      "depends": ["protocol_v1"],
+      "port": 9400
+    },
+    "mesh_sim": {
+      "module": "seed_mesh_sim",
+      "exports": ["Node", "step_sim", "compute_metrics", "route"],
+      "depends": ["protocol_v2"]
+    },
+    "mesh_udp": {
+      "module": "seed_mesh_udp",
+      "exports": ["Node", "pack_packet", "unpack_packet", "combine_seeds"],
+      "ports": "50000+"
+    },
+    "mesh_lan": {
+      "module": "seed_mesh_lan",
+      "exports": ["Node", "create_multicast_socket", "receive_loop"],
+      "multicast": "224.1.1.1:50000"
+    }
+  },
+
+  "consumes": {
+    "agent_framework": {
+      "description": "Agent base class and message passing for seed-native TCP agents",
+      "imports": ["core.Agent", "core.Message", "transports.TCPTransport"],
+      "status": "planned",
+      "enables": "seed_agent_tcp"
+    },
+    "visualization": {
+      "description": "3D plotting for shell structure and mesh topology",
+      "imports": ["matplotlib", "plotly"],
+      "status": "optional",
+      "enables": "interactive field visualization"
+    },
+    "persistence": {
+      "description": "State serialization for long-running mesh nodes",
+      "imports": ["sqlite3", "json"],
+      "status": "optional",
+      "enables": "seed history, node state checkpoints"
+    },
+    "crypto": {
+      "description": "Seed signing and packet authentication",
+      "imports": ["hashlib", "hmac"],
+      "status": "planned",
+      "enables": "authenticated seed exchange, tamper detection"
+    }
+  },
+
+  "interfaces": {
+    "seed_vector": {
+      "type": "np.array(6)",
+      "format": "[+X, -X, +Y, -Y, +Z, -Z]",
+      "constraint": "sum == 1.0, all >= 0"
+    },
+    "shell": {
+      "type": "dict",
+      "keys": {
+        "id": "int",
+        "r": "float",
+        "E": "float",
+        "S": "np.array(6)"
+      },
+      "extended_keys": {
+        "mode": "str (EXPLORE|EXPAND|SEED)",
+        "epsilon": "float"
+      }
+    },
+    "position_vector": {
+      "type": "np.array(3)",
+      "format": "[x, y, z]",
+      "unit": "meters"
+    },
+    "packet_v1": {
+      "size": 13,
+      "fields": ["version:u8", "frame:u8", "flags:u8", "seed:5B", "energy:u8", "epoch:u16", "crc:u16"]
+    },
+    "packet_v2": {
+      "size": 21,
+      "fields": ["version:u8", "frame:u8", "flags:u8", "seed:5B", "energy:u8", "epoch:u16", "anchor:u16", "offset:i8x3", "dir_idx:u8", "projection:u16", "crc:u16"]
+    },
+    "geometry": {
+      "type": "np.array(6,3)",
+      "name": "U",
+      "vertices": "octahedral: +X -X +Y -Y +Z -Z"
+    }
+  },
+
+  "hooks": {
+    "on_seed_received": {
+      "signature": "callback(seed: np.array(6), metadata: dict) -> None",
+      "description": "Called when a new seed arrives via any transport"
+    },
+    "on_shell_formed": {
+      "signature": "callback(shell: dict, shells: list) -> None",
+      "description": "Called after each shell is formed during expansion"
+    },
+    "on_mode_switch": {
+      "signature": "callback(shell_id: int, from_mode: str, to_mode: str) -> None",
+      "description": "Called when exploration switches between EXPLORE and EXPAND"
+    },
+    "on_node_update": {
+      "signature": "callback(node: Node, neighbors: list) -> None",
+      "description": "Called after a mesh node updates from neighbors"
+    }
+  },
+
+  "constraints": {
+    "causality": "Only inner shells influence outer shells (r < r_sample)",
+    "energy_conservation": "sum(S_i) == E exactly at every shell",
+    "scale_invariance": "sigma = sigma_scale * r_shell",
+    "non_negative": "All S_i >= 0",
+    "determinism": "expand_seed(seed) must produce identical results everywhere"
+  },
+
+  "requires": {
+    "python": ">=3.8",
+    "numpy": ">=1.20"
+  }
+}
