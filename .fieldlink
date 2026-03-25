@@ -125,6 +125,20 @@
       "module": "seed_mesh_lan",
       "exports": ["Node", "create_multicast_socket", "receive_loop"],
       "multicast": "224.1.1.1:50000"
+    },
+    "validation": {
+      "module": "physics_guard",
+      "exports": [
+        "check_energy_conservation",
+        "check_non_negative",
+        "check_causality",
+        "check_radial_scaling",
+        "check_energy_decay",
+        "validate_shells",
+        "verify_deterministic",
+        "guard"
+      ],
+      "depends": ["physics"]
     }
   },
 
