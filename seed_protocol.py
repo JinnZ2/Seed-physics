@@ -1,13 +1,13 @@
 """
-seed_protocol_v1.py — Orbital Seed Transport + Reconstruction (v1)
+seed_protocol.py — Orbital Seed Transport + Reconstruction (v1)
 
 Combines:
-- Octahedral seed encoding (6D → 5 values)
+- Octahedral seed encoding (6D -> 5 values)
 - Deterministic expansion (physics-compliant)
 - Minimal packet format for degraded networks
 
 Target:
-- 10–14 byte packets
+- 10-14 byte packets
 - Stateless reconstruction
 - Deterministic identity
 
@@ -32,7 +32,7 @@ PACK_FMT_NOCRC = ">BBB5sBH"   # up to epoch
 PACK_FMT_FULL  = ">BBB5sBHH"  # + crc
 
 # =============================================================================
-# GEOMETRY (same as your core)
+# GEOMETRY
 # =============================================================================
 
 U = np.array([
@@ -47,6 +47,7 @@ U = np.array([
 # =============================================================================
 
 def encode_seed(proportions, bits=8):
+    """Encode 6 proportional values to 5 bytes (6th implicit)."""
     proportions = np.array(proportions, dtype=float)
     proportions /= proportions.sum()
 
@@ -62,6 +63,7 @@ def encode_seed(proportions, bits=8):
 
 
 def decode_seed(encoded, bits=8):
+    """Decode 5 bytes back to 6 proportional values."""
     max_val = (1 << bits) - 1
 
     p = [b / max_val for b in encoded]
@@ -77,10 +79,12 @@ def decode_seed(encoded, bits=8):
 # =============================================================================
 
 def angular_weight(u1, u2):
+    """Angular influence weight between two directions."""
     return max(0.0, np.dot(u1, u2))
 
 
-def build_W():
+def build_influence_matrix():
+    """Build 6x6 angular influence matrix with row normalization."""
     W = np.zeros((6, 6))
     for i in range(6):
         for j in range(6):
@@ -91,7 +95,8 @@ def build_W():
     return W
 
 
-def normalize_energy(v, E):
+def normalize_to_energy(v, E):
+    """Normalize amplitude vector to total energy E."""
     v = np.maximum(v, 0)
     s = v.sum()
     if s == 0:
@@ -99,17 +104,18 @@ def normalize_energy(v, E):
     return v * (E / s)
 
 
-def expand(seed, steps=6, E0=1.0, r0=1.0, rho=1.5, eps=0.6):
-    W = build_W()
+def expand_seed(seed, steps=6, E0=1.0, r0=1.0, rho=1.5, epsilon=0.6):
+    """Expand seed into shell structure."""
+    W = build_influence_matrix()
 
     shells = []
-    S = normalize_energy(seed, E0)
+    S = normalize_to_energy(seed, E0)
 
     shells.append({"r": r0, "E": E0, "S": S})
 
     for _ in range(steps):
         r_new = rho * shells[-1]["r"]
-        E_new = eps * shells[-1]["E"]
+        E_new = epsilon * shells[-1]["E"]
 
         field = np.zeros(6)
         for sh in shells:
@@ -117,7 +123,7 @@ def expand(seed, steps=6, E0=1.0, r0=1.0, rho=1.5, eps=0.6):
                 continue
             field += W @ sh["S"]
 
-        S_new = normalize_energy(field, E_new)
+        S_new = normalize_to_energy(field, E_new)
 
         shells.append({"r": r_new, "E": E_new, "S": S_new})
 
@@ -128,13 +134,8 @@ def expand(seed, steps=6, E0=1.0, r0=1.0, rho=1.5, eps=0.6):
 # PACKET LAYER
 # =============================================================================
 
-def pack_seed_packet(
-    proportions,
-    frame_id=1,
-    flags=0,
-    energy_hint=128,
-    epoch=0
-):
+def pack_seed_packet(proportions, frame_id=1, flags=0, energy_hint=128, epoch=0):
+    """Pack seed into a 13-byte transport packet with CRC."""
     seed_bytes = encode_seed(proportions)
 
     header = struct.pack(
@@ -164,6 +165,7 @@ def pack_seed_packet(
 
 
 def unpack_seed_packet(packet):
+    """Unpack and verify a seed transport packet."""
     unpacked = struct.unpack(PACK_FMT_FULL, packet)
 
     version, frame, flags, seed_bytes, energy, epoch, crc = unpacked
@@ -200,10 +202,12 @@ def unpack_seed_packet(packet):
 # =============================================================================
 
 def seed_distance(a, b):
+    """L1 distance between two seed vectors."""
     return np.sum(np.abs(a - b))
 
 
 def same_entity(a, b, threshold=0.05):
+    """Check if two seeds represent the same entity."""
     return seed_distance(a, b) < threshold
 
 
@@ -225,6 +229,6 @@ if __name__ == "__main__":
     print(data)
 
     print("\n--- EXPAND ---")
-    shells = expand(data["seed"], steps=5)
+    shells = expand_seed(data["seed"], steps=5)
     for i, s in enumerate(shells):
         print(i, np.round(s["S"], 3))

@@ -174,7 +174,13 @@ It’s also not optimized, production-ready, or battle-tested. It’s a proof of
 - `seed_expansion.py` — Core implementation with verification and binary encoding
 - `orbital_octa_v2.py` — Extended implementation with tunable sharpness and test suite
 - `seed_exploration.py` — Adaptive growth with complexity-based mode switching
-- `CLAUDE.md` — Development guide and naming conventions
+- `seed_protocol.py` — v1 transport: 13-byte packets with CRC for degraded networks
+- `seed_protocol_v2.py` — v2 transport: 21-byte packets with spatial position encoding
+- `seed_udp.py` — Simple UDP broadcast/receive for seed discovery
+- `seed_mesh_sim.py` — In-process multi-node simulation with routing
+- `seed_mesh_udp.py` — Real UDP mesh on localhost with packet loss/jitter
+- `seed_mesh_lan.py` — Multi-machine LAN mesh via IP multicast
+- `CLAUDE.md` — Development guide, architecture, and naming conventions
 
 -----
 
