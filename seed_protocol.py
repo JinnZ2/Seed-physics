@@ -111,9 +111,9 @@ def expand_seed(seed, steps=6, E0=1.0, r0=1.0, rho=1.5, epsilon=0.6):
     shells = []
     S = normalize_to_energy(seed, E0)
 
-    shells.append({"r": r0, "E": E0, "S": S})
+    shells.append({"id": 0, "r": r0, "E": E0, "S": S})
 
-    for _ in range(steps):
+    for i in range(1, steps + 1):
         r_new = rho * shells[-1]["r"]
         E_new = epsilon * shells[-1]["E"]
 
@@ -125,7 +125,7 @@ def expand_seed(seed, steps=6, E0=1.0, r0=1.0, rho=1.5, epsilon=0.6):
 
         S_new = normalize_to_energy(field, E_new)
 
-        shells.append({"r": r_new, "E": E_new, "S": S_new})
+        shells.append({"id": i, "r": r_new, "E": E_new, "S": S_new})
 
     return shells
 
