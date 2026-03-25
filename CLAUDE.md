@@ -20,6 +20,10 @@ Physics-compliant seed expansion: a 40-bit seed encodes 6 proportional amplitude
 
 - **`seed_protocol_v2.py`** - v2 transport with spatial coupling. 21-byte packets adding position encoding (anchor cell + local offset) and neighbor routing hints.
 
+### Validation Modules
+
+- **`physics_guard.py`** - Constraint validator for seed expansions. Checks energy conservation, causality, non-negative amplitudes, radial scaling, and energy decay. Re-expands from seed to verify deterministic reproducibility. Single entry point: `guard(seed, shells)`.
+
 ### Network Modules
 
 - **`seed_udp.py`** - Simple UDP broadcast/receive. Sends seed packets at 1Hz, receiver reconstructs shells from incoming seeds. Designed for lossy/intermittent networks.
@@ -49,6 +53,9 @@ seed_udp.py
 seed_mesh_sim.py
     -> imports from seed_protocol_v2.py
 
+physics_guard.py
+    -> imports from seed_expansion.py
+
 orbital_octa_v2.py
     (standalone, parallel implementation with sharpness)
 
@@ -69,6 +76,7 @@ pip install numpy
 python seed_expansion.py
 python orbital_octa_v2.py
 python seed_exploration.py
+python physics_guard.py
 
 # Protocol demos
 python seed_protocol.py
