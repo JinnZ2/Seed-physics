@@ -2,10 +2,25 @@
   "fieldlink": "1.0",
   "identity": {
     "name": "seed-physics",
-    "description": "Physics-compliant seed expansion and field-mediated mesh networking",
+    "description": "40-bit seed expansion — octahedral encoding, deterministic physics, identity system",
+    "repository": "JinnZ2/Seed-physics",
     "license": "MIT",
     "standalone": true
   },
+
+  "links": [
+    {
+      "target": "JinnZ2/TRDAP",
+      "alias": "trdap",
+      "direction": "bidirectional",
+      "relationship": "protocol-implementation",
+      "description": "TRDAP carries Seed Protocol reference implementations (v1-v4), mesh transport layers, and deployment guides",
+      "shared_paths": {
+        "local": "/",
+        "remote": "seed-protocol/"
+      }
+    }
+  ],
 
   "provides": {
     "physics": {
