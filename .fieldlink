@@ -126,6 +126,16 @@
       "exports": ["Node", "create_multicast_socket", "receive_loop"],
       "multicast": "224.1.1.1:50000"
     },
+    "agent": {
+      "module": "constraint_agent",
+      "exports": [
+        "AgentState",
+        "ResourceBudget",
+        "GeometricMap",
+        "ConstraintAgent"
+      ],
+      "standalone": true
+    },
     "validation": {
       "module": "physics_guard",
       "exports": [
