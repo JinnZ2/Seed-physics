@@ -24,6 +24,10 @@ Physics-compliant seed expansion: a 40-bit seed encodes 6 proportional amplitude
 
 - **`physics_guard.py`** - Constraint validator for seed expansions. Checks energy conservation, causality, non-negative amplitudes, radial scaling, and energy decay. Re-expands from seed to verify deterministic reproducibility. Single entry point: `guard(seed, shells)`.
 
+### Agent Modules
+
+- **`constraint_agent.py`** - Seed-native agent with bloom/explore/compress lifecycle. Uses exact-rational arithmetic (fractions) for energy accounting. Expands outward from a seed ID, traverses discovered constraint geometry, collapses back preserving the geometric map. Serializable. Extension hooks for Rosetta, Mandala, and Emotions-as-Sensors integration.
+
 ### Network Modules
 
 - **`seed_udp.py`** - Simple UDP broadcast/receive. Sends seed packets at 1Hz, receiver reconstructs shells from incoming seeds. Designed for lossy/intermittent networks.
@@ -56,6 +60,9 @@ seed_mesh_sim.py
 physics_guard.py
     -> imports from seed_expansion.py
 
+constraint_agent.py
+    (standalone, no numpy dependency — stdlib only: fractions, dataclasses, enum)
+
 orbital_octa_v2.py
     (standalone, parallel implementation with sharpness)
 
@@ -77,6 +84,7 @@ python seed_expansion.py
 python orbital_octa_v2.py
 python seed_exploration.py
 python physics_guard.py
+python constraint_agent.py
 
 # Protocol demos
 python seed_protocol.py
