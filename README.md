@@ -202,7 +202,7 @@ This started at truck stops and rest areas on I-94 — late nights, long hauls, 
 
 ## License
 
-MIT. Use it, modify it, build on it.
+CC0-1.0. Use it, modify it, build on it.
 
 ---
 
