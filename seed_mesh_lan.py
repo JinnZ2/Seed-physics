@@ -11,7 +11,7 @@ Usage:
     # Run on each machine in the LAN:
     python seed_mesh_lan.py
 
-Author: Jami + synthesis
+Author: JinnZ2 + synthesis
 License: MIT
 """
 

@@ -10,7 +10,7 @@ Usage:
     python seed_udp.py send    # broadcast seed packets
     python seed_udp.py recv    # listen and reconstruct
 
-Author: Jami + synthesis
+Author: JinnZ2 + synthesis
 License: MIT
 """
 
