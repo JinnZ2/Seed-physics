@@ -22,7 +22,7 @@ When energy is scarce:
 The complexity cost (Shannon entropy) of the seed determines the
 energy threshold for switching between modes.
 
-Author:  (Kavik Ulu) and AI partners - MIT License
+Author: JinnZ2 and AI collaborators - CC0-1.0
 """
 
 import numpy as np

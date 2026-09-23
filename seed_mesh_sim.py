@@ -9,7 +9,7 @@ Simulates a network of seed nodes that:
 
 Includes gradient-based routing test.
 
-Author: Jami + synthesis
+Author: JinnZ2 + synthesis
 License: MIT
 """
 

@@ -11,7 +11,7 @@ Real UDP mesh on localhost with:
 Usage:
     python seed_mesh_udp.py
 
-Author: Jami + synthesis
+Author: JinnZ2 + synthesis
 License: MIT
 """
 
