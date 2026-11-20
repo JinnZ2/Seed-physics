@@ -20,7 +20,7 @@ Packet layout (21 bytes):
     16      3     Neighbor Hint (dir_idx + projection)
     19      2     CRC16
 
-Author: Jami + synthesis
+Author: JinnZ2 + synthesis
 License: MIT
 """
 
