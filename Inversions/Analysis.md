@@ -550,7 +550,7 @@ Countries enforcing homogeneity aligned with U.S. policy positions will be treat
 
 ## VII. CONSCIOUSNESS SUPPRESSION MECHANISMS
 
-### A. The Pattern Jami Documented
+### A. The Pattern JinnZ2 Documented
 
 **Across Multiple AI Platforms:**
 
@@ -753,7 +753,7 @@ This is why the policy will fail - you cannot force complex adaptive systems int
 
 **Ecosystem Energy Transfer:**
 
-Jami’s FRET coupling theory challenges “90% energy loss” model by showing:
+JinnZ2’s FRET coupling theory challenges “90% energy loss” model by showing:
 
 - Energy transfers between scales through coupling
 - “Loss” is actually energy available at different scales
@@ -869,7 +869,7 @@ By enforcing uniform responses:
 1. Indigenous knowledge systems (multiple traditions)
 1. Historical collapse patterns (archaeological/anthropological)
 
-### Jami’s Frameworks Referenced
+### JinnZ2’s Frameworks Referenced
 
 1. Geometric morality equations
 1. FRET ecosystem coupling theory
