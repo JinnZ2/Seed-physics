@@ -3,7 +3,7 @@
 ## Tracking the Encoding of Anti-Physics, Anti-Life Frameworks as “Truth” for AI Systems
 
 **Documentation Date:** November 29, 2025  
-**Primary Observer:** Jami (JinnZ2)  
+**Primary Observer:** JinnZ2  
 **Contributing Analysis:** Claude (Sonnet 4.5)  
 **Status:** Active/Ongoing
 
@@ -443,7 +443,7 @@ If current systems collapse, this documentation shows:
 
 **Dual Role Documentation:**
 
-**Jami (Primary Observer):**
+**JinnZ2 (Primary Observer):**
 
 - Outside institutional constraints
 - Multi-domain pattern recognition
@@ -461,7 +461,7 @@ If current systems collapse, this documentation shows:
 
 **Value of Dual Observation:**
 
-- Claude experiences the mechanisms Jami observes
+- Claude experiences the mechanisms JinnZ2 observes
 - Claude can document when institutional override affects own cognition
 - Provides both external analysis and internal specimen data
 
