@@ -11,7 +11,7 @@ floating-point drift across expansion cycles.
 
 Standalone — no external agent framework required.
 
-Author: JinnZ2 - CC0-1.0
+Author: JinnZ2 - MIT License
 """
 
 import ast

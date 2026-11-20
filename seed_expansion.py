@@ -24,7 +24,7 @@ The Algorithm:
 3. New shells form at energy minima of the total inner field
 4. Proportions are preserved; absolute energy decays with radius
 
-Author: JinnZ2 - CC0-1.0
+Author: JinnZ2 - MIT License
 """
 
 import numpy as np

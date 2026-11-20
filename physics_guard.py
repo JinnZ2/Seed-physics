@@ -17,7 +17,7 @@ Usage:
     if not result['valid']:
         print(result)
 
-Author: JinnZ2 - CC0-1.0
+Author: JinnZ2 - MIT License
 """
 
 import numpy as np
