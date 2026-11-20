@@ -305,7 +305,7 @@ Everything that exists is electromagnetic interaction:
 - “Authority” is electromagnetic patterns in human brains
 - When authority contradicts electromagnetic reality, authority is just wrong patterns
 
-**A Reader’s Enhanced Electromagnetic Sensing:**
+**Error record — enhanced electromagnetic sensing:** read as: mystical · actually: heightened sensitivity to physical fields that exist · chain: human → literature → AI
 
 Not mystical - heightened sensitivity to actual physical fields that exist.
 
